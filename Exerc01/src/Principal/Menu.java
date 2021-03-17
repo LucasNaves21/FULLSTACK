@@ -38,7 +38,7 @@ public class Menu {
 					break;
 
 				case 4:
-					System.out.println("Implentar Relatórios");
+					this.Relatorio(sc);
 					break;
 
 				case 5:
@@ -133,7 +133,6 @@ public class Menu {
 		
 	}
 	
-	
 	private void cadatrarCliente(Scanner sc) {
 
 		System.out.println("--- Novo Cliente-----");
@@ -169,7 +168,8 @@ public class Menu {
 			
 			Main.clientes.add(new PessoaFisica(id, nome, endereco, cpf, dtNascimento, genero));
 			
-		}else {
+		} else {
+			
 			System.out.println("--- Informe o Nome -----");
 			String cnpj = sc.nextLine();
 			
@@ -184,6 +184,7 @@ public class Menu {
 	private void menuConta(Scanner sc, Conta conta) {
 		
 		Integer escolha = 1;
+		
 		do {
 			this.showMenuConta(conta);
 			try {
@@ -261,10 +262,11 @@ public class Menu {
 				System.out.println("Opção Incorreta, sair.");
 				escolha = 6;
 			}
-		}while (escolha != 6);
+		} while (escolha != 6);
 	}
 
 	private void showMenuPrincipal() {
+		
 		System.out.println("-------------------------");
 		System.out.println("---Selecione Uma Opção---");
 		System.out.println("-------------------------");
@@ -277,6 +279,7 @@ public class Menu {
 	}
 
 	private void showMenuConta(Conta conta) {
+		
 		System.out.println("-------------------------");
 		System.out.println("Cliente: " + conta.getCliente().getNome());
 		System.out.println("Nr Conta: " + conta.getNrConta());
@@ -291,18 +294,45 @@ public class Menu {
 		System.out.println("6 – Sair");
 		System.out.println("-------------------------");
 	}
-
 	
-	
+	private void Relatorio(Scanner sc) {
+		
+		System.out.println("1 - Saldo das Contas");
+		System.out.println("2- Total das Contas");
+		
+		Integer num = sc.nextInt();
+		Double total = 0.0;
+		
+		if (num == 1) {
+			
+			for (Conta c : Main.contas) {
+				
+				System.out.println("Nome: "+c.getCliente().getNome()+", saldo: R$ "+c.getsaldo());				
+			}
+		}
+		
+		if (num == 2) {
+				
+			for (Conta c : Main.contas) {
+				
+				total += c.getSaldo();	
+				
+				}
+			
+				System.out.println("Total das contas: "+total);
+			}	
+		}
 
 	public Conta buscarConta(Scanner sc) {
 
 		Conta conta = null;
+		
 		do {
 			System.out.println("------------------------------");
 			System.out.println("---Digite o número da Conta---");
 			System.out.println("------------------------------");
 			Integer escolha = sc.nextInt();
+			
 			for (Conta c : Main.contas) {
 
 				if (c.getNrConta().equals(escolha)) {
@@ -310,6 +340,7 @@ public class Menu {
 					break;
 				}
 			}
+			
 			if (conta == null) {
 				System.out.println("------------------------------");
 				System.out.println("-----Conta Não Encontrada-----");
