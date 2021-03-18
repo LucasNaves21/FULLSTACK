@@ -1,5 +1,6 @@
 package Principal;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,7 @@ import dominio.ContaEspecial;
 import dominio.Categoria;
 import dominio.Conta;
 import dominio.ContaPoupanca;
+import dominio.MinhaExeption;
 import dominio.Pessoa;
 import dominio.PessoaFisica;
 import dominio.PessoaJuridica;
@@ -18,7 +20,7 @@ public class Main {
 	static List<Conta> contas = new ArrayList<Conta>();
 	static List<Pessoa> clientes = new ArrayList<Pessoa>();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MinhaExeption, ParseException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		

@@ -1,13 +1,16 @@
 package Principal;
 
-import java.time.Instant;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import dominio.Categoria;
 import dominio.Conta;
 import dominio.ContaEspecial;
 import dominio.ContaPoupanca;
+import dominio.MinhaExeption;
 import dominio.Pessoa;
 import dominio.PessoaFisica;
 import dominio.PessoaJuridica;
@@ -16,7 +19,8 @@ public class Menu {
 
 	Categoria categoria = null;
 
-	public void menuPrincipal(Scanner sc) {
+	//Menu principal do sistema//
+	public void menuPrincipal(Scanner sc) throws MinhaExeption, ParseException {
 		
 		Integer escolha = 1;
 		Conta conta;
@@ -50,8 +54,8 @@ public class Menu {
 				default:
 					System.out.println("Opção Incorreta");
 				}
-			} catch (Exception e) {
-				System.out.println("Opção Incorreta, sair.");
+			}catch (InputMismatchException e)  {
+				System.out.println("Opção inválida digite o número com ',' ");
 				escolha = 5;
 			}
 		} while (escolha != 5);
@@ -59,9 +63,12 @@ public class Menu {
 	}
 
 	
+	//metodo abrir nova conta//
 	private void abriNovaConta(Scanner sc) {
-				
+		
+		
 		System.out.println("------ Nova Conta -------\n");
+		
 		System.out.println("------ Digite os dados do Cliente -------\n");
 
 		
@@ -69,10 +76,12 @@ public class Menu {
 		Integer id = sc.nextInt();
 		
 		System.out.println("Nome do Cliente: ");
-		String nome = sc.next();
+		String nome = sc.nextLine();
+		
+		sc.nextLine();
 		
 		System.out.println("Endereço: ");
-		String endereco = sc.next();
+		String endereco = sc.nextLine();
 		
 		Pessoa novoCliente = new Pessoa(id, nome, endereco);
 		
@@ -135,16 +144,16 @@ public class Menu {
 		
 		  System.out.println("\n-----------Conta Criada com sucesso---------\n");
 		}
-		
-		if (tipo != 1 || tipo != 2) {
-			System.out.println("opção não encontrada");
-		}
+				
 	}
 		else 
 				System.out.println("Opção não encontrada");
+		
 	}
 	
-	private void cadatrarCliente(Scanner sc) {
+	
+	//metodo cadastrar novo Cliente//
+	private void cadatrarCliente(Scanner sc) throws ParseException {
 
 		System.out.println("--- Novo Cliente-----");
 		System.out.println("Selecione o tipo de Pessoa");
@@ -160,24 +169,29 @@ public class Menu {
 		System.out.println("--- Informe o Nome -----");
 		String nome = sc.nextLine();
 		
+		sc.nextLine();
+		
 		System.out.println("--- Informe o Endereço -----");
 		String endereco = sc.nextLine();
-		
+				
 		if(tipo == 1) {
 			System.out.println("--- Informe o CPF -----");
 			String cpf = sc.nextLine();
 			
 			System.out.println("--- Informe a Data de Nascimento -----");
-			String[] dtAux = sc.next().trim().split("/");
+			String dtAux = sc.next();
 			
-			Date dtNascimento = Date.from(Instant.parse(dtAux[2]+"-"+dtAux[2]+"-"+dtAux[0]+"T00:00:00Z"));
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
 
-			
-					
+			Date dataFormatada = formato.parse(dtAux); 
+			//Date dtNascimento = Date.from(Instant.parse(dtAux[2]+"-"+dtAux[2]+"-"+dtAux[0]+"T00:00:00Z"));
+	
 			System.out.println("--- Informe o Genero (M/F) -----");
 			String genero = sc.next();
 			
-			Main.clientes.add(new PessoaFisica(id, nome, endereco, cpf, dtNascimento, genero));
+			Main.clientes.add(new PessoaFisica(id, nome, endereco, cpf, dataFormatada, genero));
+			
+			System.out.println("Cliente Cadastrado com Sucesso!");
 			
 		} else {
 			
@@ -192,13 +206,14 @@ public class Menu {
 
 	}
 
-	private void menuConta(Scanner sc, Conta conta) {
+	//metodo que aciona os outros metodos de cada opção
+	private void menuConta(Scanner sc, Conta conta) throws MinhaExeption {
 		
 		Integer escolha = 1;
 		
 		do {
 			this.showMenuConta(conta);
-			try {
+			//try {
 				escolha = sc.nextInt();
 				Double vr;
 				switch (escolha) {
@@ -254,7 +269,6 @@ public class Menu {
 					System.out.println("Informe o Valor para Saque");
 					vr = sc.nextDouble();
 					conta.sacar(vr);
-					
 					break;
 				case 4: 
 					
@@ -274,13 +288,14 @@ public class Menu {
 					break;
 				}
 
-			}  catch (Exception e) {
-				System.out.println("Opção Incorreta, sair.");
-				escolha = 6;
-			}
+		//	}  catch (Exception e) {
+			//	System.out.println("Opção Incorreta, sair.");
+			//	escolha = 6;
+		//	}
 		} while (escolha != 6);
 	}
 
+	//metodo que gera o menu principal
 	private void showMenuPrincipal() {
 		
 		System.out.println("-------------------------");
@@ -294,6 +309,7 @@ public class Menu {
 		System.out.println("-------------------------");
 	}
 
+	//metodo de gera o menu conta
 	private void showMenuConta(Conta conta) {
 		
 		System.out.println("-------------------------");
@@ -311,6 +327,7 @@ public class Menu {
 		System.out.println("-------------------------");
 	}
 	
+	//metodo de gerar relatorios
 	private void Relatorio(Scanner sc) {
 		
 		System.out.println("1 - Saldo das Contas");
@@ -339,6 +356,7 @@ public class Menu {
 			}	
 		}
 
+	//metodo de buscar conta
 	public Conta buscarConta(Scanner sc) {
 
 		Conta conta = null;

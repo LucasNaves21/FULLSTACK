@@ -51,18 +51,19 @@ public class Conta {
 	
 	
 	//saca o valor da conta e retorna true se operação bem sucedido
-    public boolean sacar(double valor) {
+    public boolean sacar(double valor) throws MinhaExeption {
     	if (valor < saldo) {
     		this.saldo -= valor;
     		return true;
     	}
     	else {
-    		return false;
+    		throw new MinhaExeption();
+    	
     	}
     }
     
     
-    public boolean transferir(double valor, Conta contaDestino){
+    public boolean transferir(double valor, Conta contaDestino) throws MinhaExeption {
         boolean retirou = sacar(valor);
         	if (retirou) {
         		contaDestino.depositar(valor);
