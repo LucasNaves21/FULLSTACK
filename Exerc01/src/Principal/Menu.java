@@ -17,8 +17,10 @@ public class Menu {
 	Categoria categoria = null;
 
 	public void menuPrincipal(Scanner sc) {
+		
 		Integer escolha = 1;
 		Conta conta;
+		
 		do {
 			this.showMenuPrincipal();
 			try {
@@ -101,14 +103,17 @@ public class Menu {
 			categoria = Categoria.PERSONALITE;
 		}
 		
-		System.out.println("Informe o saldo: ");
-		Double saldo = sc.nextDouble();
+		if (Cat == 1 || Cat == 2 || Cat == 3 || Cat == 4) {
+			
+			System.out.println("Informe o saldo: ");
+			Double saldo = sc.nextDouble();
 		
-		System.out.println("Selecione o tipo de Conta para abertura");
-		System.out.println("1 - Conta Poupança");
-		System.out.println("2 - Conta Especial");
+			System.out.println("Selecione o tipo de Conta para abertura");
+			System.out.println("1 - Conta Poupança");
+			System.out.println("2 - Conta Especial");
 		
-		Integer tipo = sc.nextInt();
+			Integer tipo = sc.nextInt();
+		
 		
 		if (tipo == 1) {
 			
@@ -122,6 +127,7 @@ public class Menu {
 		}
 		
 		if (tipo == 2) {
+			
 			System.out.println("Informe o Limite especial: ");
 			Double limite = sc.nextDouble();
 			
@@ -129,8 +135,13 @@ public class Menu {
 		
 		  System.out.println("\n-----------Conta Criada com sucesso---------\n");
 		}
-	
 		
+		if (tipo != 1 || tipo != 2) {
+			System.out.println("opção não encontrada");
+		}
+	}
+		else 
+				System.out.println("Opção não encontrada");
 	}
 	
 	private void cadatrarCliente(Scanner sc) {
@@ -220,13 +231,18 @@ public class Menu {
 					if (Cat == 4) {
 						categoria = Categoria.PERSONALITE;
 					}
-					
+	
+					if (Cat == 1 || Cat == 2 || Cat == 3 || Cat == 4) {
 					System.out.println("Digite o novo saldo: ");
 					Double saldo = sc.nextDouble();
 					
 					conta.alterar(nrConta, categoria, saldo);
 					
-					System.out.println("-------Conta alterada com sucesso----");
+					System.out.println("-------Conta alterada com sucesso----\n");
+					}
+					
+					else 
+						System.out.println("Categoria inválida");
 					
 					break;
 				case 2: 
