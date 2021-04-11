@@ -34,6 +34,10 @@ public class Matricula implements Serializable {
 	@JoinColumn(name="id_oferta")
 	private Oferta oferta;
 
+	public Matricula() {
+		super();
+	}
+
 	public Matricula(Integer idMatricula, Aluno aluno, Oferta oferta) {
 		super();
 		this.idMatricula = idMatricula;

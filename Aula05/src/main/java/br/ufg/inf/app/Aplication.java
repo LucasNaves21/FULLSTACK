@@ -127,16 +127,16 @@ public static void testeMatricula() {
 	OfertaCtrl ofertaCtrl = new OfertaCtrl();
 	
 	Matricula mat1 = new Matricula(null, alunoCtrl.buscaPorId(1), ofertaCtrl.buscaPorId(3));
-	Matricula mat2 = new Matricula(null, alunoCtrl.buscaPorId(5), ofertaCtrl.buscaPorId(6));
+	Matricula mat2 = new Matricula(null, alunoCtrl.buscaPorId(2), ofertaCtrl.buscaPorId(6));
 		
 		ctrl.inserir(mat1);
 		ctrl.inserir(mat2);
 	
-		mat1 = ctrl.buscaPorId(1);
+		mat1 = ctrl.buscaPorId(3);
+		//mat1.setIdMatricula(16);
+		//ctrl.alterar(mat1);
 		
-		mat1.setIdMatricula(10);
-		ctrl.alterar(mat1);
-		
+		ctrl.excluir(8);
 	}
 	
 	public static void testeAluno() {
@@ -149,7 +149,7 @@ public static void testeMatricula() {
 		try {
 			
 		Aluno aluno1 = new Aluno(null, simpleDateFormat.parse("02/02/2021"), true, pessoaCtrl.buscaPorId(1), cursoCtrl.buscaPorId(1));
-		Aluno aluno2 = new Aluno(null, simpleDateFormat.parse("04/05/2022"), true, pessoaCtrl.buscaPorId(3), cursoCtrl.buscaPorId(7));
+		Aluno aluno2 = new Aluno(null, simpleDateFormat.parse("04/05/2022"), true, pessoaCtrl.buscaPorId(3), cursoCtrl.buscaPorId(6));
 		
 		
 		ctrl.inserir(aluno1);
@@ -160,6 +160,7 @@ public static void testeMatricula() {
 		
 		aluno1.setAtivo(false);;
 		ctrl.alterar(aluno1);
+		ctrl.excluir(9);
 		
 		
 		for(Aluno o : ctrl.buscaTodos()) {
@@ -180,14 +181,18 @@ public static void testeMatricula() {
 	
 		
 		Curso curso1 = new Curso(null, "Sistema de Informação");
+		Curso curso2 = new Curso(null, "História");
+
 		
 		ctrl.inserir(curso1);
+		ctrl.inserir(curso2);
 		
 		curso1 = ctrl.buscaPorId(1);
 		
 		curso1.setNmCurso("Ciência da Computação");
 		ctrl.alterar(curso1);
 		
+		ctrl.excluir(7);
 	}
 	
 	

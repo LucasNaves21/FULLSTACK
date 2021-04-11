@@ -27,9 +27,11 @@ public class MatriculaDAO {
 	}
 
 	public Matricula alterar(Matricula matricula) throws MatriculaExection {
+		
 		this.em.getTransaction().begin();
 		this.em.persist(matricula);
 		this.em.getTransaction().commit();
+		
 		return matricula;
 	}
 
